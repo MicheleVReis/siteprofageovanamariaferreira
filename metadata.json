@@ -1,0 +1,6 @@
+{
+  "name": "Profa. Geovana - Aulas Particulares",
+  "description": "Hero section widescreen 16:9 premium para a marca Profa. Geovana Aulas Particulares (Matemática e Física) com o Método GEO.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
