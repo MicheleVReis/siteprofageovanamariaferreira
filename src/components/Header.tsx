@@ -70,16 +70,16 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header id="header-nav" className="w-full relative z-30 py-3 sm:py-3.5 px-3 sm:px-6 md:px-7 lg:px-8 flex items-center justify-between border-b border-[#0D0B24]/5 gap-2 sm:gap-4">
+    <header id="header-nav" className="w-full max-w-full relative z-30 py-3 sm:py-3.5 px-3 sm:px-5 lg:px-6 xl:px-7 flex items-center justify-between border-b border-[#0D0B24]/5 gap-2 xl:gap-2.5 2xl:gap-4">
       {/* 1. Brand Logo */}
       <a
         href="#inicio"
         id="brand-logo"
         onClick={(e) => handleNavClick(e, '#inicio')}
-        className="flex items-center gap-2 sm:gap-2.5 cursor-pointer select-none group shrink-0"
+        className="flex items-center gap-2 cursor-pointer select-none group shrink-0"
       >
         {/* Typographic Logo GEO */}
-        <div className="flex items-center text-[26px] sm:text-[32px] font-black tracking-tight leading-none text-[#3B14E2] font-heading group-hover:opacity-95 transition-opacity">
+        <div className="flex items-center text-[24px] sm:text-[28px] 2xl:text-[32px] font-black tracking-tight leading-none text-[#3B14E2] font-heading group-hover:opacity-95 transition-opacity">
           <span>G</span>
           <span className="relative inline-block mx-[1px]">
             E
@@ -90,11 +90,11 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Brand Text Stack */}
-        <div className="flex flex-col justify-center border-l border-[#0D0B24]/15 pl-2 sm:pl-2.5">
-          <span className="text-[13px] sm:text-[14px] font-extrabold tracking-tight text-[#0D0B24] font-heading leading-tight whitespace-nowrap">
+        <div className="flex flex-col justify-center border-l border-[#0D0B24]/15 pl-2">
+          <span className="text-[12.5px] sm:text-[13.5px] 2xl:text-[14px] font-extrabold tracking-tight text-[#0D0B24] font-heading leading-tight whitespace-nowrap">
             Profa. Geovana
           </span>
-          <span className="text-[8.5px] sm:text-[9.5px] font-bold tracking-[0.16em] text-[#0D0B24]/70 uppercase mt-0.5 whitespace-nowrap">
+          <span className="text-[8px] sm:text-[9px] font-bold tracking-[0.14em] text-[#0D0B24]/70 uppercase mt-0.5 whitespace-nowrap">
             AULAS PARTICULARES
           </span>
         </div>
@@ -103,54 +103,63 @@ export const Header: React.FC<HeaderProps> = ({
       {/* 2. Desktop Navigation Menu */}
       <nav
         id="desktop-menu"
-        className="hidden xl:flex items-center gap-1.5 2xl:gap-2.5 bg-white/90 backdrop-blur-md px-3 2xl:px-4.5 py-1.5 rounded-full border border-[#0D0B24]/8 shadow-[0_2px_12px_rgba(0,0,0,0.03)] whitespace-nowrap shrink"
+        className="hidden xl:flex items-center gap-0.5 2xl:gap-2 bg-white/90 backdrop-blur-md px-2.5 2xl:px-4 py-1.5 rounded-full border border-[#0D0B24]/8 shadow-[0_2px_12px_rgba(0,0,0,0.03)] whitespace-nowrap min-w-0"
       >
-        {navItems.map((item) => (
-          <a
-            key={item.label}
-            href={item.href}
-            id={`nav-item-${item.label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-            onClick={(e) => handleNavClick(e, item.href)}
-            className={`relative text-[11px] 2xl:text-[12.5px] font-semibold py-1 px-1.5 2xl:px-2 transition-all duration-150 whitespace-nowrap shrink-0 flex items-center gap-1.5 group ${
-              item.highlight
-                ? 'bg-gradient-to-r from-[#F2EEFF] to-[#FAF8FF] text-[#3B14E2] hover:text-[#2509A6] border border-[#DDD0FE] rounded-full px-2.5 shadow-2xs hover:shadow-xs hover:border-[#3B14E2]/40 font-bold'
-                : item.active
-                ? 'text-[#3B14E2]'
-                : 'text-[#0D0B24]/75 hover:text-[#3B14E2]'
-            }`}
-          >
-            {item.icon === 'mentoria' && (
-              <span className="flex items-center text-[#F5A300] drop-shadow-2xs">
-                <Gem className="w-3.5 h-3.5 fill-[#F5A300]/25 text-[#F5A300] group-hover:scale-110 transition-transform" />
-              </span>
-            )}
-            {item.icon === 'matematica' && (
-              <span className="flex items-center text-[#3B14E2] group-hover:scale-110 transition-transform">
-                <Calculator className="w-3.5 h-3.5 text-[#3B14E2]" />
-              </span>
-            )}
-            {item.icon === 'fisica' && (
-              <span className="flex items-center text-[#7C3AED] group-hover:scale-110 transition-transform">
-                <Atom className="w-3.5 h-3.5 text-[#7C3AED]" />
-              </span>
-            )}
-            <span>{item.label}</span>
+        {navItems.map((item) => {
+          const isSecondaryItem =
+            item.href === '#publico' ||
+            item.href === '#como-funciona' ||
+            item.href === '#localizacao';
 
-            {/* Linha indicadora ativa centrada */}
-            {item.active && !item.highlight && (
-              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-3.5 h-[2px] bg-[#3B14E2] rounded-full shadow-xs"></span>
-            )}
-          </a>
-        ))}
+          return (
+            <a
+              key={item.label}
+              href={item.href}
+              id={`nav-item-${item.label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+              onClick={(e) => handleNavClick(e, item.href)}
+              className={`relative text-[11px] 2xl:text-[12.5px] font-semibold py-1 px-1.5 2xl:px-2 transition-all duration-150 whitespace-nowrap shrink-0 items-center gap-1 group ${
+                isSecondaryItem ? 'hidden 2xl:flex' : 'flex'
+              } ${
+                item.highlight
+                  ? 'bg-gradient-to-r from-[#F2EEFF] to-[#FAF8FF] text-[#3B14E2] hover:text-[#2509A6] border border-[#DDD0FE] rounded-full px-2 2xl:px-2.5 shadow-2xs hover:shadow-xs hover:border-[#3B14E2]/40 font-bold'
+                  : item.active
+                  ? 'text-[#3B14E2]'
+                  : 'text-[#0D0B24]/75 hover:text-[#3B14E2]'
+              }`}
+            >
+              {item.icon === 'mentoria' && (
+                <span className="flex items-center text-[#F5A300] drop-shadow-2xs">
+                  <Gem className="w-3.5 h-3.5 fill-[#F5A300]/25 text-[#F5A300] group-hover:scale-110 transition-transform" />
+                </span>
+              )}
+              {item.icon === 'matematica' && (
+                <span className="flex items-center text-[#3B14E2] group-hover:scale-110 transition-transform">
+                  <Calculator className="w-3.5 h-3.5 text-[#3B14E2]" />
+                </span>
+              )}
+              {item.icon === 'fisica' && (
+                <span className="flex items-center text-[#7C3AED] group-hover:scale-110 transition-transform">
+                  <Atom className="w-3.5 h-3.5 text-[#7C3AED]" />
+                </span>
+              )}
+              <span>{item.label}</span>
+
+              {/* Linha indicadora ativa centrada */}
+              {item.active && !item.highlight && (
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-3.5 h-[2px] bg-[#3B14E2] rounded-full shadow-xs"></span>
+              )}
+            </a>
+          );
+        })}
       </nav>
 
       {/* 3. Right Action Buttons */}
-      <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+      <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
         {/* Botão Secundário: Área do Aluno */}
         <button
           id="btn-nav-student-portal"
           onClick={onOpenStudentPortal || onOpenContact}
-          className={`hidden lg:inline-flex h-9 sm:h-9.5 px-3 sm:px-3.5 items-center gap-1.5 rounded-full border text-xs sm:text-[12.5px] font-bold tracking-tight shadow-xs hover:shadow-sm transition-all duration-150 cursor-pointer whitespace-nowrap shrink-0 ${
+          className={`hidden lg:inline-flex h-9 px-3 items-center gap-1.5 rounded-full border text-xs font-bold tracking-tight shadow-xs hover:shadow-sm transition-all duration-150 cursor-pointer whitespace-nowrap shrink-0 ${
             activeUser
               ? 'bg-[#F2EEFF] hover:bg-[#EAE3FB] border-[#3B14E2]/30 text-[#3B14E2]'
               : 'bg-white/95 hover:bg-[#F4EFFF] border-slate-200 hover:border-[#3B14E2]/30 text-slate-700 hover:text-[#3B14E2]'
@@ -166,7 +175,7 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           id="btn-header-cta"
           onClick={onOpenContact}
-          className="group relative h-9 sm:h-9.5 px-3.5 sm:px-4.5 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#3B14E2] via-[#320EC9] to-[#2509A6] hover:from-[#320EC9] hover:to-[#1C0585] text-white text-xs sm:text-[12.5px] font-bold tracking-wide shadow-[0_4px_14px_rgba(59,20,226,0.3)] hover:shadow-[0_6px_20px_rgba(59,20,226,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-150 cursor-pointer whitespace-nowrap shrink-0"
+          className="group relative h-9 px-3.5 sm:px-4 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#3B14E2] via-[#320EC9] to-[#2509A6] hover:from-[#320EC9] hover:to-[#1C0585] text-white text-[11.5px] sm:text-xs font-bold tracking-wide shadow-[0_4px_14px_rgba(59,20,226,0.3)] hover:shadow-[0_6px_20px_rgba(59,20,226,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-150 cursor-pointer whitespace-nowrap shrink-0"
         >
           <span>QUERO COMEÇAR</span>
           <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#F5A300] group-hover:text-white transition-all duration-150 group-hover:translate-x-0.5 shrink-0" />
